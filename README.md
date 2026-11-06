@@ -43,6 +43,7 @@ Desde la raiz del repositorio, en PowerShell:
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r backend\requirements.txt
+.\.venv\Scripts\python.exe backend\export_demo.py
 cd frontend
 npm.cmd ci
 cd ..

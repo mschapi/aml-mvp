@@ -477,6 +477,7 @@ function App() {
         <button onClick={() => load().catch((e) => setError(e.message))}>
           Reintentar
         </button>
+        {isPublicDemo && error && <button onClick={() => { if (window.confirm("Restablecer los datos locales de esta demo?")) { localStorage.removeItem("aml-public-demo-v1"); localStorage.removeItem("aml-user"); location.reload(); } }}>Restablecer demo</button>}
       </div>
     );
   return (
