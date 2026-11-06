@@ -2,7 +2,39 @@
 
 Demo funcional de una plataforma AML / PLAFT basada en la propuesta para Payway. Incluye gestion de casos, motor de alertas y segmentacion en un monorepo independiente. Interfaz en castellano con identidad Neural Co.
 
-## Ejecutar en Windows
+## Demo publica en GitHub Pages
+
+URL prevista: https://mschapi.github.io/aml-mvp/
+
+La publicacion Pages usa `VITE_PUBLIC_DEMO=true`: no conecta con FastAPI ni con datos reales.
+Conserva casos, reglas, simulacion, screening, segmentacion, roles de prueba y exportaciones
+en el navegador. Los cambios se guardan en localStorage y NO se comparten con otras personas.
+El selector de roles no es autenticacion. No ingresar informacion real ni confidencial.
+El boton Restablecer demo borra exclusivamente los datos locales de esta demo.
+
+Diferencias de esta version: exportaciones de grillas en CSV (Excel en el backend),
+screening por coincidencia exacta normalizada sobre listas ficticias (fuzzy en el backend),
+y auditoria local no inmutable. PDF y adjuntos operan solo en el navegador.
+Las fechas iniciales se ajustan al dia de apertura. El almacenamiento depende de la cuota
+del navegador; adjuntos grandes pueden agotarla. No hay servidor, sincronizacion ni login.
+
+En Settings > Pages seleccionar Source: GitHub Actions. El workflow `Publish AML demo`
+prueba y compila antes de publicar. Para verificar localmente:
+
+```powershell
+python backend/export_demo.py
+cd frontend
+node test-demo.mjs
+$env:VITE_PUBLIC_DEMO='true'
+npm.cmd run build
+npm.cmd run preview
+```
+
+Abrir la ruta `/aml-mvp/` del servidor de preview. Sin esa variable se conserva el modo
+backend original. El seed se regenera con `python backend/export_demo.py`; ese script
+solo crea datos sinteticos nuevos y nunca lee la base de datos local.
+
+## Aplicacion con backend en Windows
 
 Requisitos: Python 3.12+ y Node.js 20.19+ (o 22.12+).
 

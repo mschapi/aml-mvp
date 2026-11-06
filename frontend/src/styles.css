@@ -1073,3 +1073,6 @@ footer {
     padding: 15px;
   }
 }
+ .public-demo-notice { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 24px; background: #fff4db; color: #584218; font-size: 12px; border-bottom: 1px solid #ecd59e; }
+ .public-demo-notice button { flex-shrink: 0; padding: 6px 10px; font-size: 12px; }
+ @media (max-width: 700px) { .public-demo-notice { flex-direction: column; align-items: flex-start; padding: 10px 16px; } }

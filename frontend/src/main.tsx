@@ -24,7 +24,7 @@ import {
   Users,
   X,
 } from "lucide-react";
-import { request, download, type Row } from "./api";
+import { request, download, isPublicDemo, type Row } from "./api";
 import "./styles.css";
 
 const nav = [
@@ -472,7 +472,7 @@ function App() {
   if (!data)
     return (
       <div className="loading">
-        <img src="/brand/logo.svg" alt="Neural Co" />
+        <img src={import.meta.env.BASE_URL + "brand/logo.svg"} alt="Neural Co" />
         <p>{error || "Cargando plataforma AML…"}</p>
         <button onClick={() => load().catch((e) => setError(e.message))}>
           Reintentar
@@ -483,7 +483,7 @@ function App() {
     <div className="app">
       <aside className="sidebar">
         <a className="brand" href="#dashboard" onClick={() => go("dashboard")}>
-          <img src="/brand/logo.svg" alt="Neural Co" />
+          <img src={import.meta.env.BASE_URL + "brand/logo.svg"} alt="Neural Co" />
         </a>
         <div className="workspace">
           <span className="workspace-icon">P</span>
@@ -544,6 +544,10 @@ function App() {
             </select>
           </div>
         </header>
+        {isPublicDemo && <div className="public-demo-notice" role="note">
+          <span>Demo publica · Datos ficticios · Cambios solo en este navegador. No ingresar datos reales.</span>
+          <button onClick={() => { if (window.confirm("Restablecer los datos de esta demo en este navegador?")) { localStorage.removeItem("aml-public-demo-v1"); location.reload(); } }}>Restablecer demo</button>
+        </div>}
         {notifications && (
           <div className="notifications">
             {data.notifications.length
@@ -1028,7 +1032,7 @@ function App() {
                     <>
                       <button onClick={() => exportGrid("cases")}>
                         <Download size={16} />
-                        Excel
+                        {isPublicDemo ? "CSV" : "Excel"}
                       </button>
                       <button
                         className="primary"
@@ -1056,7 +1060,7 @@ function App() {
                   {page === "entities" && (
                     <button onClick={() => exportGrid("entities")}>
                       <Download size={16} />
-                      Excel
+                      {isPublicDemo ? "CSV" : "Excel"}
                     </button>
                   )}
                   {page === "screening" && (
@@ -1703,7 +1707,7 @@ function App() {
                     <h2>Actividad y auditoria</h2>
                     <button onClick={() => exportGrid("audit")}>
                       <Download size={16} />
-                      Excel
+                      {isPublicDemo ? "CSV" : "Excel"}
                     </button>
                   </div>
                   {table(data.audit, [

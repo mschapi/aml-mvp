@@ -11,3 +11,4 @@ uploads/
 test-results/
 .tmp/
 *.tsbuildinfo
+frontend/src/demo-seed.json
